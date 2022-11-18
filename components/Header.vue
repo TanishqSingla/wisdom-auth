@@ -4,7 +4,7 @@ export default {};
 
 <template>
 	<header
-		class="sm:hidden w-full h-28 outline-dotted outline-slate-900 grid place-items-center"
+		class="lg:hidden w-full h-28 grid place-items-center"
 	>
 		<div class="flex items-start gap-3">
 			<svg
