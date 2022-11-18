@@ -1,7 +1,3 @@
-<script>
-export default {};
-</script>
-
 <template>
 	<header
 		class="lg:hidden w-full h-28 grid place-items-center"
