@@ -1,4 +1,5 @@
 <script>
+import { Form, Field, ErrorMessage } from "vee-validate";
 import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
 
 export default {
@@ -9,93 +10,40 @@ export default {
 	},
 	data() {
 		return {
-			visible: false
-		}
-	}
+			visible: false,
+		};
+	},
 };
-</script>
-
-<script setup>
-import { Form, Field, ErrorMessage, useForm } from "vee-validate";
-
-const errorEmail = useState("errorEmail", () => false);
-const errorPassword = useState("errorPassword", () => false);
-const emailOrPhone = useState("emailOrPhone", () => "");
-const password = useState("password", () => "");
-
-const { setFieldError, setErrors } = useForm();
-
-defineExpose({ errorEmail, errorPassword, emailOrPhone, password });
-
-function onSubmit(values, actions) {}
-
-function validateEmail() {
-	if (!emailOrPhone.value) {
-		setFieldError('email', inputErrors.noEmailOrPhone)
-		return;
-	}
-	if (emailOrPhone.value.includes("@")) {
-		if (!isEmail(value)) {
-			setFieldError('email', inputErrors.validEmail);
-			return;
-		}
-	} else {
-		if (!isMobileNumber(emailOrPhone)) {
-			errorEmail.value = true;
-			setErrors({email: inputErrors.validPhNumber});
-			return;
-		}
-	}
-	errorEmail.value = false
-}
-
-function validatePassword(value) {
-	if (!value) {
-		errorPassword.value = true;
-		return inputErrors.noPassword;
-	}
-	if (value.length < 8) {
-		return inputErrors.minPassword;
-	}
-	errorPassword.value = false;
-	return true;
-}
 </script>
 
 <template>
 	<Layout>
 		<template #children>
 			<div class="lg:grid lg:place-items-center grow">
-				<Form @submit="onSubmit" class="flex flex-col gap-4">
-					<label for="email">
-						<Field
-							name="email"
-							type="text"
-							v-on:blur="validateEmail"
-							placeholder="Email Id or Mobile Number"
-							v-model.trim="emailOrPhone"
-						/>
-						<ErrorMessage name="email" />
-					</label>
-					<label for="password" class="">
-						<Field
-							name="password"
-							type="password"
-							:class="errorPassword ? 'border-danger' : ''"
-							placeholder="Password"
-							v-model.trim="password"
-						/>
-						<ErrorMessage name="password" />
-						<NuxtLink
-							to="/"
-							class="text-sm text-[royalblue] font-bold text-right"
-							>Forgot Password</NuxtLink
-						>
-					</label>
-					<button
-						type="submit"
-						class="bg-[#F1C12B] h-12 rounded-md font-bold text-lg"
+				<Form @submit="onSubmit" class="flex flex-col gap-4" v-slot="{setFieldError}">
+					<Field
+						name="email"
+						type="text"
+						placeholder="Email Id or Mobile Number"
+						v-model.trim="emailOrPhone"
+						:rules="validateEmail"
+						:class="emailError ? 'border-danger' : ''"
+					/>
+					<ErrorMessage name="email" />
+					<Field
+						name="password"
+						type="password"
+						placeholder="Password"
+						v-model.trim="password"
+						:rules="validatePassword"
+						:class="passwordError ? 'border-danger' : ''"
+					/>
+					<ErrorMessage name="password" />
+					<NuxtLink to="/" class="text-sm text-[royalblue] font-bold text-right"
+						>Forgot Password</NuxtLink
 					>
+					<button type="button">nope</button>
+					<button class="bg-[#F1C12B] h-12 rounded-md font-bold text-lg">
 						Sign In
 					</button>
 				</Form>
@@ -114,6 +62,67 @@ function validatePassword(value) {
 		</template>
 	</Layout>
 </template>
+
+<script setup>
+const emailOrPhone = useState("emailOrPhone", () => "");
+const password = useState("password", () => "");
+const emailTouched = useState("emailTouched", () => false);
+const passwordTouched = useState("passwordTouched", () => false);
+const emailError = useState("emailError", () => false);
+const passwordError = useState("passwordError", () => false);
+
+defineExpose({
+	emailOrPhone,
+	password,
+	emailTouched,
+	passwordTouched,
+	emailError,
+	passwordError,
+});
+
+function onSubmit(values, actions) {}
+
+function validateEmail(value, form) {
+	if (!emailTouched.value) {
+		emailTouched.value = true;
+		return;
+	}
+	if (!value) {
+		emailError.value = true;
+		return inputErrors.noEmailOrPhone;
+	}
+	if (value.includes("@")) {
+		if (!isEmail(value)) {
+			emailError.value = true;
+			return inputErrors.validEmail;
+		}
+	} else {
+		if (!isMobileNumber(value)) {
+			emailError.value = true;
+			return inputErrors.validPhNumber;
+		}
+	}
+	emailError.value = false;
+	return true;
+}
+
+function validatePassword(value) {
+	if (!passwordTouched.value) {
+		passwordTouched.value = true;
+		return;
+	}
+	if (!value) {
+		passwordError.value = true;
+		return inputErrors.noPassword;
+	}
+	if (value.length < 8) {
+		passwordError.value = true;
+		return inputErrors.minPassword;
+	}
+	passwordError.value = false;
+	return true;
+}
+</script>
 
 <style>
 body {
