@@ -11,6 +11,8 @@ export default {
 	data() {
 		return {
 			visible: false,
+			emailOrPhone: "",
+			password: "",
 		};
 	},
 	methods: {
@@ -27,21 +29,16 @@ export default {
 			return true;
 		},
 		validatePassword(value) {
-			if (!value) {
+			if (!this.password) {
 				return inputErrors.noPassword;
 			}
-			console.log(value.length);
-			if (value.length < 8) {
+			if (this.password.length < 8) {
 				return inputErrors.minPassword;
 			}
+			return true;
 		},
 	},
 };
-</script>
-
-<script setup>
-const emailOrPhone = ref("");
-const password = ref("");
 </script>
 
 <template>
@@ -56,21 +53,30 @@ const password = ref("");
 					v-model.trim="emailOrPhone"
 				/>
 				<ErrorMessage name="email" />
-				<Field
-					name="password"
-					type="password"
-					:rules="validatePassword"
-					placeholder="Password"
-					v-model.trim="password"
-				/>
-				<ErrorMessage name="password" />
-				<NuxtLink to="">Forgot Password</NuxtLink>
-				<button type="submit">Sign In</button>
+				<label>
+					<Field
+						name="password"
+						type="password"
+						:rules="validatePassword"
+						placeholder="Password"
+						v-model.trim="password"
+					/>
+					<ErrorMessage name="password" />
+					<NuxtLink to="/" class="text-sm text-[royalblue]"
+						>Forgot Password</NuxtLink
+					>
+				</label>
+				<button
+					type="submit"
+					class="bg-[#F1C12B] h-12 rounded-md font-bold text-lg"
+				>
+					Sign In
+				</button>
 			</Form>
 			<button @click="visible = true">Show modal</button>
 			<Modal v-show="visible" v-on:closeModal="() => (visible = false)">
 				<template #children>
-					<div class="h-32 w-32 bg-white">
+					<div class="modalContainer">
 						<p>Reset Password</p>
 						<p>
 							Thank you! We have sent you a link to reset your password. Please
@@ -85,9 +91,9 @@ const password = ref("");
 
 <style>
 body {
-	font-family: "Work Sans", sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 input {
-	@apply p-2;
+	@apply p-2 h-12 w-96;
 }
 </style>

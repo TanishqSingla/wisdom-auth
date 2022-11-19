@@ -31,3 +31,9 @@
 		</div>
 	</header>
 </template>
+
+<style scoped>
+header {
+	font-family: 'Work Sans', sans-serif;
+}
+</style>
