@@ -7,6 +7,6 @@ export default {
 	<Header />
 	<main class="flex h-screen">
 		<section class="hidden lg:flex flex-col bg-[#404555] w-[40%]"></section>
-		<slot name="children">Fallback</slot>
+		<slot name="children"></slot>
 	</main>
 </template>

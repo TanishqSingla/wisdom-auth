@@ -10,7 +10,7 @@ export const isMobileNumber = (value: string) => {
 
 export const inputErrors = {
   minPassword: "Password must be greater than 8 letters",
-  noPassword: "Please enter passord",
+  noPassword: "Please enter password",
   validPhNumber: "Please enter a valid mobile number",
   noEmailOrPhone: "Please enter email or mobile number",
   validEmail: "Please enter a valid email"
