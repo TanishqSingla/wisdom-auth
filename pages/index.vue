@@ -1,5 +1,4 @@
 <script>
-import { Form, Field, ErrorMessage } from "vee-validate";
 import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
 
 export default {
@@ -10,42 +9,44 @@ export default {
 	},
 	data() {
 		return {
-			visible: false,
-			emailOrPhone: "",
-			errorEmail: false,
-			password: "",
-			errorPassword: false,
-		};
-	},
+			visible: false
+		}
+	}
 };
 </script>
 
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 
-const errorEmail = useState('errorEmail', () => false);
-const errorPassword = useState('errorPassword', () => false);
+const errorEmail = useState("errorEmail", () => false);
+const errorPassword = useState("errorPassword", () => false);
+const emailOrPhone = useState("emailOrPhone", () => "");
+const password = useState("password", () => "");
 
-defineExpose({errorEmail, errorPassword})
+const { setFieldError, setErrors } = useForm();
+
+defineExpose({ errorEmail, errorPassword, emailOrPhone, password });
 
 function onSubmit(values, actions) {}
 
-function validateEmail(value) {
-	if (!value) return inputErrors.noEmailOrPhone;
-	if (value.includes("@")) {
+function validateEmail() {
+	if (!emailOrPhone.value) {
+		setFieldError('email', inputErrors.noEmailOrPhone)
+		return;
+	}
+	if (emailOrPhone.value.includes("@")) {
 		if (!isEmail(value)) {
-			errorEmail.value = true;
-			return inputErrors.validEmail;
+			setFieldError('email', inputErrors.validEmail);
+			return;
 		}
 	} else {
-		if (!isMobileNumber(value)) {
+		if (!isMobileNumber(emailOrPhone)) {
 			errorEmail.value = true;
-			return inputErrors.validPhNumber;
+			setErrors({email: inputErrors.validPhNumber});
+			return;
 		}
 	}
-	errorPassword.value = false;
-	errorEmail.value = false;
-	return true;
+	errorEmail.value = false
 }
 
 function validatePassword(value) {
@@ -70,7 +71,7 @@ function validatePassword(value) {
 						<Field
 							name="email"
 							type="text"
-							:rules="validateEmail"
+							v-on:blur="validateEmail"
 							placeholder="Email Id or Mobile Number"
 							v-model.trim="emailOrPhone"
 						/>
@@ -81,7 +82,6 @@ function validatePassword(value) {
 							name="password"
 							type="password"
 							:class="errorPassword ? 'border-danger' : ''"
-							:rules="validatePassword"
 							placeholder="Password"
 							v-model.trim="password"
 						/>
