@@ -1,16 +1,12 @@
 <script>
-import Header from './Header.vue';
-import Footer from './Footer.vue';
-
 export default {
-  components: {
-    Header
-  }
-}
+};
 </script>
 
 <template>
-  <Header />
-  <slot name="children">Fallback</slot>
-  <Footer />
+	<Header />
+	<main class="flex h-screen">
+		<section class="hidden lg:flex flex-col bg-[#404555] w-[40%]"></section>
+		<slot name="children">Fallback</slot>
+	</main>
 </template>

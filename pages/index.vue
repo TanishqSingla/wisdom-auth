@@ -1,5 +1,6 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { isEmail, isMobileNumber } from "../util/utils";
 
 export default {
 	components: {
@@ -8,58 +9,67 @@ export default {
 		ErrorMessage,
 	},
 	data() {
-    return {
-      visible: false
-    }
-  },
+		return {
+			visible: false,
+		};
+	},
 	methods: {
 		onSubmit(values) {
-			console.log("SUBMITTED");
+			console.log("SUBMITTED", values);
 		},
-		validateEmail(value) {
+		validateEmail(input) {
+			let value = input.trim();
 			if (!value) {
-				return "This field is empty";
+				return "Please enter email";
+			}
+			if (value.includes("@")) {
+				if (!isEmail(value)) return "Please enter a valid email";
+			} else {
+				if (!isMobileNumber(value)) return "Please enter a valid mobile number";
 			}
 
-			const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-			const regexNumber = /^(\+\d{1,3}[- ]?)?\d{10}$/;
-
-			if (!regexEmail.test(value)) {
-				return "Please enter a valid email address";
+			return true;
+		},
+		validatePassword(value) {
+			if (!value) {
+				return "Please enter password";
 			}
-			if (!regexNumber.test(value)) {
-				return "Please enter a valid mobile number";
-			}
+			return true;
 		},
 	},
 };
 </script>
 
+<script setup>
+const emailOrPhone = ref("");
+</script>
+
 <template>
 	<Layout>
 		<template #children>
-			<main class="flex">
-				<section class="hidden lg:block bg-[#404555]">hello world</section>
-				<Form @submit="onSubmit">
-					<Field
-						name="email"
-						type="email"
-						:rules="validateEmail"
-						placeholder="Email Id or Mobile Number"
-					/>
-					<ErrorMessage name="email" />
-					<input type="password" />
-					<NuxtLink to="forgot">Forgot Password</NuxtLink>
-					<button type="submit">Sign In</button>
-				</Form>
-				<button @click="visible=true">Show modal</button>
-			</main>
-			<Modal v-show="visible" v-on:closeModal="() => visible = false">
+			<Form @submit="onSubmit" class="flex flex-col">
+				<Field
+					name="email"
+					type="text"
+					:rules="validateEmail"
+					placeholder="Email Id or Mobile Number"
+					v-model.trime="emailOrPhone"
+				/>
+				<ErrorMessage name="email" />
+				<Field name="password" type="password" placeholder="Password" />
+				<NuxtLink to="">Forgot Password</NuxtLink>
+				<button type="submit">Sign In</button>
+			</Form>
+			<button @click="visible = true">Show modal</button>
+			<Modal v-show="visible" v-on:closeModal="() => (visible = false)">
 				<template #children>
 					<div class="h-32 w-32 bg-white">
-            <p>Reset Password</p>
-            <p>Thank you! We have sent you a link to reset your password. Please check your email</p>
-          </div>
+						<p>Reset Password</p>
+						<p>
+							Thank you! We have sent you a link to reset your password. Please
+							check your email
+						</p>
+					</div>
 				</template>
 			</Modal>
 		</template>
@@ -69,5 +79,8 @@ export default {
 <style>
 body {
 	font-family: "Work Sans", sans-serif;
+}
+input {
+	@apply p-2	
 }
 </style>
