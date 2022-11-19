@@ -1,6 +1,6 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import { isEmail, isMobileNumber } from "../util/utils";
+import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
 
 export default {
 	components: {
@@ -17,24 +17,23 @@ export default {
 		onSubmit(values) {
 			console.log("SUBMITTED", values);
 		},
-		validateEmail(input) {
-			let value = input.trim();
-			if (!value) {
-				return "Please enter email";
-			}
+		validateEmail(value) {
+			if (!value) return inputErrors.noEmailOrPhone;
 			if (value.includes("@")) {
-				if (!isEmail(value)) return "Please enter a valid email";
+				if (!isEmail(value)) return inputErrors.validEmail;
 			} else {
-				if (!isMobileNumber(value)) return "Please enter a valid mobile number";
+				if (!isMobileNumber(value)) return inputErrors.validPhNumber;
 			}
-
 			return true;
 		},
 		validatePassword(value) {
 			if (!value) {
-				return "Please enter password";
+				return inputErrors.noPassword;
 			}
-			return true;
+			console.log(value.length);
+			if (value.length < 8) {
+				return inputErrors.minPassword;
+			}
 		},
 	},
 };
@@ -42,6 +41,7 @@ export default {
 
 <script setup>
 const emailOrPhone = ref("");
+const password = ref("");
 </script>
 
 <template>
@@ -53,10 +53,17 @@ const emailOrPhone = ref("");
 					type="text"
 					:rules="validateEmail"
 					placeholder="Email Id or Mobile Number"
-					v-model.trime="emailOrPhone"
+					v-model.trim="emailOrPhone"
 				/>
 				<ErrorMessage name="email" />
-				<Field name="password" type="password" placeholder="Password" />
+				<Field
+					name="password"
+					type="password"
+					:rules="validatePassword"
+					placeholder="Password"
+					v-model.trim="password"
+				/>
+				<ErrorMessage name="password" />
 				<NuxtLink to="">Forgot Password</NuxtLink>
 				<button type="submit">Sign In</button>
 			</Form>
@@ -81,6 +88,6 @@ body {
 	font-family: "Work Sans", sans-serif;
 }
 input {
-	@apply p-2	
+	@apply p-2;
 }
 </style>
