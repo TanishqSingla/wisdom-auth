@@ -4,10 +4,10 @@ import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
 
 export default {
 	components: {
-		Form,
-		Field,
-		ErrorMessage,
-	},
+    Form,
+    Field,
+    ErrorMessage,
+},
 	data() {
 		return {
 			visible: false,
@@ -25,7 +25,7 @@ export default {
 						<h1 class="font-bold text-2xl mb-2">Sign In to WisdomCircle</h1>
 						<p>
 							Don't have an account?
-							<span class="text-accent font-bold">Sign Up</span>
+							<NuxtLink to="/signup" class="text-accent font-bold">Sign Up</NuxtLink>
 						</p>
 					</div>
 					<Form
@@ -57,7 +57,7 @@ export default {
 							<ErrorMessage name="password" />
 						</label>
 						<NuxtLink
-							to="/"
+							to="/forgotPassword"
 							class="text-sm text-[royalblue] font-bold text-right"
 							>Forgot Password</NuxtLink
 						>
