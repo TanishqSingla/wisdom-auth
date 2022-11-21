@@ -12,7 +12,7 @@ module.exports = {
 		extend: {
 			colors: {
 				danger: "#D92D20",
-				accent: "royalblue",
+				accent: "#2558E5",
 				neutralGray: "#404555",
 			},
 		},

@@ -20,33 +20,52 @@ export default {
 	<Layout>
 		<template #children>
 			<div class="lg:grid lg:place-items-center grow">
-				<Form @submit="onSubmit" class="flex flex-col gap-4" v-slot="{setFieldError}">
-					<Field
-						name="email"
-						type="text"
-						placeholder="Email Id or Mobile Number"
-						v-model.trim="emailOrPhone"
-						:rules="validateEmail"
-						:class="emailError ? 'border-danger' : ''"
-					/>
-					<ErrorMessage name="email" />
-					<Field
-						name="password"
-						type="password"
-						placeholder="Password"
-						v-model.trim="password"
-						:rules="validatePassword"
-						:class="passwordError ? 'border-danger' : ''"
-					/>
-					<ErrorMessage name="password" />
-					<NuxtLink to="/" class="text-sm text-[royalblue] font-bold text-right"
-						>Forgot Password</NuxtLink
+				<div>
+					<div class="mb-6">
+						<h1 class="font-bold text-2xl mb-2">Sign In to WisdomCircle</h1>
+						<p>
+							Don't have an account?
+							<span class="text-accent font-bold">Sign Up</span>
+						</p>
+					</div>
+					<Form
+						@submit="onSubmit"
+						class="flex flex-col gap-4"
+						v-slot="{ setFieldError }"
 					>
-					<button type="button">nope</button>
-					<button class="bg-[#F1C12B] h-12 rounded-md font-bold text-lg">
-						Sign In
-					</button>
-				</Form>
+						<label>
+							<Field
+								name="email"
+								type="text"
+								placeholder="Email Id or Mobile Number"
+								v-model.trim="emailOrPhone"
+								:rules="validateEmail"
+								:class="emailError ? 'border-danger' : ''"
+							/>
+							<ErrorMessage name="email" />
+						</label>
+						<label>
+							<Field
+								name="password"
+								type="password"
+								placeholder="Password"
+								v-model.trim="password"
+								:rules="validatePassword"
+								:class="passwordError ? 'border-danger' : ''"
+							/>
+							<span class=""></span>
+							<ErrorMessage name="password" />
+						</label>
+						<NuxtLink
+							to="/"
+							class="text-sm text-[royalblue] font-bold text-right"
+							>Forgot Password</NuxtLink
+						>
+						<button class="bg-[#F1C12B] h-12 rounded-md font-semibold text-lg">
+							Sign In
+						</button>
+					</Form>
+				</div>
 			</div>
 			<Modal v-show="visible" v-on:closeModal="() => (visible = false)">
 				<template #children>
@@ -128,12 +147,15 @@ function validatePassword(value) {
 body {
 	font-family: "Poppins", sans-serif;
 }
+
 input {
 	@apply p-2 h-12 w-96 border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
 }
+
 label {
 	@apply flex flex-col;
 }
+
 span[role="alert"] {
 	@apply text-danger;
 }

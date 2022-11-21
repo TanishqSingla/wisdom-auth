@@ -1,7 +1,3 @@
-<script>
-export default {};
-</script>
-
 <template>
 	<Header />
 	<main class="flex h-screen">
@@ -75,7 +71,7 @@ export default {};
 </template>
 
 <style>
-main {
+main section {
   color: white;
 	font-family: "Poppins", sans-serif;
 }
