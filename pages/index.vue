@@ -20,7 +20,7 @@ export default {
 	<Layout>
 		<template #children>
 			<section class="form-section">
-				<div>
+				<div class="form-container">
 					<div class="form-caption">
 						<h1 class="caption-title">Sign In to WisdomCircle</h1>
 						<p>
@@ -28,22 +28,26 @@ export default {
 							<NuxtLink to="/signup" class="text-accent font-bold">Sign Up</NuxtLink>
 						</p>
 					</div>
-					<Form @submit="onSubmit" class="flex flex-col gap-4">
-						<label>
-							<Field name="email" type="text" placeholder="Email Id or Mobile Number" v-model.trim="emailOrPhone"
-								:class="errorEmail ? 'border-danger' : ''" />
-							<ErrorMessage name="email" />
-						</label>
-						<label>
-							<Field name="password" type="password" placeholder="Password" v-model.trim="password"
-								:class="errorPassword ? 'border-danger' : ''" />
-							<ErrorMessage name="password" />
-						</label>
-						<NuxtLink to="/forgotPassword" class="text-sm text-[royalblue] font-bold text-right">Forgot Password
-						</NuxtLink>
-						<button class="btn-primary">
-							Sign In
-						</button>
+					<Form @submit="onSubmit" class="form">
+						<div class="form-body">
+							<label>
+								<Field name="email" type="text" placeholder="Email Id or Mobile Number" v-model.trim="emailOrPhone"
+									:class="errorEmail ? 'border-danger' : ''" />
+								<ErrorMessage name="email" />
+							</label>
+							<label>
+								<Field name="password" type="password" placeholder="Password" v-model.trim="password"
+									:class="errorPassword ? 'border-danger' : ''" />
+								<ErrorMessage name="password" />
+							</label>
+							<NuxtLink to="/forgotPassword" class="text-sm text-[royalblue] font-bold text-right">Forgot Password
+							</NuxtLink>
+						</div>
+						<div class="form-footer">
+							<button class="btn-primary">
+								Sign In
+							</button>
+						</div>
 					</Form>
 				</div>
 			</section>

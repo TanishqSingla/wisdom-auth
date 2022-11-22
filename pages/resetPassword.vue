@@ -59,6 +59,7 @@ export default {
                 " v-on:click="() => (showConfirmPassword = !showConfirmPassword)" class="absolute right-4 top-4" />
                 <span :class="errorConfirmPassword?'text-danger':'text-slate-500'">Both passwords must match!</span>
             </label>
+            <div class="spacer" />
             <button class="btn-primary" type="submit">Reset Password</button>
           </form>
         </div>

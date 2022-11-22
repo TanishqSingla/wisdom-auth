@@ -1,6 +1,6 @@
 <template>
 	<Header />
-	<main class="flex h-screen">
+	<main class="flex lg:h-screen grow">
 		<section class="hidden lg:flex flex-col bg-[#404555] w-[40%] text-white">
 			<div class="h-[60%] grid place-items-center">
 				<img src="~/assets/svgs/landing-logo.svg" />
@@ -31,5 +31,11 @@
 <style>
 main section {
 	font-family: "Poppins", sans-serif;
+}
+body {
+	@apply flex flex-col h-screen
+}
+body > div {
+	@apply h-full flex flex-col
 }
 </style>

@@ -8,7 +8,7 @@
 	}
 
 	input {
-		@apply p-2 h-12 w-96 border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
+		@apply p-2 h-12 lg:w-96 w-full border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
 	}
 
 	.btn {
@@ -22,19 +22,26 @@
   }
 
   .form {
-    @apply flex flex-col gap-4
+    @apply flex flex-col gap-4 grow
   }
 	.form-section {
-		@apply lg:grid lg:place-items-center grow;
+		@apply lg:flex lg:items-center grow;
 	}
 	.form-container {
-		@apply max-w-sm;
+		@apply lg:max-w-sm mx-auto max-w-xs lg:h-auto flex flex-col h-full;
 	}
 	.form-caption {
 		@apply mb-6;
 	}
+	.form-body {
+		@apply flex flex-col gap-4 grow
+	}
+	.form-footer {
+		@apply flex flex-col mb-4
+	}
+
 	.caption-title {
-		@apply font-bold text-2xl mb-2;
+		@apply font-bold lg:text-2xl text-xl mb-2;
 	}
 
   .modal-container {
@@ -49,4 +56,7 @@
   .modal-content {
     @apply p-4 mb-4
   }
+	.spacer {
+		@apply lg:hidden grow
+	}
 }
