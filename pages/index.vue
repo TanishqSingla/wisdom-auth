@@ -31,7 +31,7 @@ export default {
 					<Form @submit="onSubmit" class="flex flex-col gap-4">
 						<label>
 							<Field name="email" type="text" placeholder="Email Id or Mobile Number" v-model.trim="emailOrPhone"
-								:class="errorPassword ? 'border-danger' : ''" />
+								:class="errorEmail ? 'border-danger' : ''" />
 							<ErrorMessage name="email" />
 						</label>
 						<label>
@@ -66,7 +66,7 @@ export default {
 const emailOrPhone = useState("emailOrPhone", () => "");
 const password = useState("password", () => "");
 const errorEmail = useState("errorEmail", () => "");
-const errorPassword = useState("errorEmail", () => "");
+const errorPassword = useState("errorPassword", () => "");
 
 
 defineExpose({
@@ -109,7 +109,7 @@ function validatePassword(value) {
 	if (value.length < 8) {
 		return inputErrors.minPassword;
 	}
-	return true;
+	return '';
 }
 </script>
 
