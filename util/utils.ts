@@ -12,6 +12,8 @@ export const inputErrors = {
   minPassword: "Password must be greater than 8 letters",
   noPassword: "Please enter password",
   validPhNumber: "Please enter a valid mobile number",
+  noEmail: "Please enter email",
+  noPhoneNumber: "Please enter mobile number",
   noEmailOrPhone: "Please enter email or mobile number",
   validEmail: "Please enter a valid email"
 }
