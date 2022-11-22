@@ -18,7 +18,7 @@ export default {
             <h1 class="caption-title">Create an account</h1>
             <p>
               Already have an account?
-              <span class="text-accent font-bold">Sign In</span>
+              <NuxtLink to="/" class="text-accent font-bold">Sign In</NuxtLink>
             </p>
           </div>
           <form class="form" @submit.prevent="">
