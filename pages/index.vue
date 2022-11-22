@@ -4,10 +4,10 @@ import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
 
 export default {
 	components: {
-    Form,
-    Field,
-    ErrorMessage,
-},
+		Form,
+		Field,
+		ErrorMessage,
+	},
 	data() {
 		return {
 			visible: false,
@@ -28,38 +28,19 @@ export default {
 							<NuxtLink to="/signup" class="text-accent font-bold">Sign Up</NuxtLink>
 						</p>
 					</div>
-					<Form
-						@submit="onSubmit"
-						class="flex flex-col gap-4"
-						v-slot="{ setFieldError }"
-					>
+					<Form @submit="onSubmit" class="flex flex-col gap-4">
 						<label>
-							<Field
-								name="email"
-								type="text"
-								placeholder="Email Id or Mobile Number"
-								v-model.trim="emailOrPhone"
-								:rules="validateEmail"
-								:class="emailError ? 'border-danger' : ''"
-							/>
+							<Field name="email" type="text" placeholder="Email Id or Mobile Number" v-model.trim="emailOrPhone"
+								:class="errorPassword ? 'border-danger' : ''" />
 							<ErrorMessage name="email" />
 						</label>
 						<label>
-							<Field
-								name="password"
-								type="password"
-								placeholder="Password"
-								v-model.trim="password"
-								:rules="validatePassword"
-								:class="passwordError ? 'border-danger' : ''"
-							/>
+							<Field name="password" type="password" placeholder="Password" v-model.trim="password"
+								:class="errorPassword ? 'border-danger' : ''" />
 							<ErrorMessage name="password" />
 						</label>
-						<NuxtLink
-							to="/forgotPassword"
-							class="text-sm text-[royalblue] font-bold text-right"
-							>Forgot Password</NuxtLink
-						>
+						<NuxtLink to="/forgotPassword" class="text-sm text-[royalblue] font-bold text-right">Forgot Password
+						</NuxtLink>
 						<button class="btn-primary">
 							Sign In
 						</button>
@@ -84,60 +65,50 @@ export default {
 <script setup>
 const emailOrPhone = useState("emailOrPhone", () => "");
 const password = useState("password", () => "");
-const emailTouched = useState("emailTouched", () => false);
-const passwordTouched = useState("passwordTouched", () => false);
-const emailError = useState("emailError", () => false);
-const passwordError = useState("passwordError", () => false);
+const errorEmail = useState("errorEmail", () => "");
+const errorPassword = useState("errorEmail", () => "");
+
 
 defineExpose({
 	emailOrPhone,
 	password,
-	emailTouched,
-	passwordTouched,
-	emailError,
-	passwordError,
+	errorEmail,
+	errorPassword
 });
 
-function onSubmit(values, actions) {}
-
-function validateEmail(value, form) {
-	if (!emailTouched.value) {
-		emailTouched.value = true;
+function onSubmit(values, actions) {
+	errorEmail.value = validateEmail(emailOrPhone.value);
+	errorPassword.value = validatePassword(password.value);
+	if (errorEmail || errorPassword) {
+		errorEmail.value && actions.setFieldError('email', errorEmail.value);
+		errorPassword.value && actions.setFieldError('password', errorPassword.value);
 		return;
 	}
+}
+
+function validateEmail(value) {
 	if (!value) {
-		emailError.value = true;
 		return inputErrors.noEmailOrPhone;
 	}
 	if (value.includes("@")) {
 		if (!isEmail(value)) {
-			emailError.value = true;
 			return inputErrors.validEmail;
 		}
 	} else {
 		if (!isMobileNumber(value)) {
-			emailError.value = true;
 			return inputErrors.validPhNumber;
 		}
 	}
-	emailError.value = false;
-	return true;
+	return '';
 }
 
 function validatePassword(value) {
-	if (!passwordTouched.value) {
-		passwordTouched.value = true;
-		return;
-	}
 	if (!value) {
-		passwordError.value = true;
 		return inputErrors.noPassword;
 	}
 	if (value.length < 8) {
-		passwordError.value = true;
 		return inputErrors.minPassword;
 	}
-	passwordError.value = false;
 	return true;
 }
 </script>
