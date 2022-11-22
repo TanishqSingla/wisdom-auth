@@ -19,10 +19,10 @@ export default {
 <template>
 	<Layout>
 		<template #children>
-			<div class="lg:grid lg:place-items-center grow">
+			<section class="form-section">
 				<div>
-					<div class="mb-6">
-						<h1 class="font-bold text-2xl mb-2">Sign In to WisdomCircle</h1>
+					<div class="form-caption">
+						<h1 class="caption-title">Sign In to WisdomCircle</h1>
 						<p>
 							Don't have an account?
 							<NuxtLink to="/signup" class="text-accent font-bold">Sign Up</NuxtLink>
@@ -53,7 +53,6 @@ export default {
 								:rules="validatePassword"
 								:class="passwordError ? 'border-danger' : ''"
 							/>
-							<span class=""></span>
 							<ErrorMessage name="password" />
 						</label>
 						<NuxtLink
@@ -61,12 +60,12 @@ export default {
 							class="text-sm text-[royalblue] font-bold text-right"
 							>Forgot Password</NuxtLink
 						>
-						<button class="bg-[#F1C12B] h-12 rounded-md font-semibold text-lg">
+						<button class="btn-primary">
 							Sign In
 						</button>
 					</Form>
 				</div>
-			</div>
+			</section>
 			<Modal v-show="visible" v-on:closeModal="() => (visible = false)">
 				<template #children>
 					<div class="modalContainer">
@@ -146,10 +145,6 @@ function validatePassword(value) {
 <style>
 body {
 	font-family: "Poppins", sans-serif;
-}
-
-input {
-	@apply p-2 h-12 w-96 border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
 }
 
 label {

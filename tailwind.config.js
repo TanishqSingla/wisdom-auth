@@ -14,6 +14,8 @@ module.exports = {
 				danger: "#D92D20",
 				accent: "#2558E5",
 				neutralGray: "#404555",
+				primary4: "#F1C12B",
+				primary6: "#A9871E"
 			},
 		},
 	},

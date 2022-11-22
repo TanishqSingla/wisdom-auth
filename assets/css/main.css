@@ -3,7 +3,37 @@
 @tailwind utilities;
 
 @layer components {
-  .modalContainer {
-    @apply bg-white max-w-lg
+	.modalContainer {
+		@apply bg-white max-w-lg;
+	}
+
+	input {
+		@apply p-2 h-12 w-96 border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
+	}
+
+	.btn {
+		@apply h-12 rounded-md font-semibold text-lg;
+	}
+	.btn-primary {
+		@apply btn bg-primary4;
+	}
+  .btn-secondary {
+    @apply btn border border-primary6 bg-[#FEFCF4] text-primary6
   }
+
+  .form {
+    @apply flex flex-col gap-4
+  }
+	.form-section {
+		@apply lg:grid lg:place-items-center grow;
+	}
+	.form-container {
+		@apply max-w-sm;
+	}
+	.form-caption {
+		@apply mb-6;
+	}
+	.caption-title {
+		@apply font-bold text-2xl mb-2;
+	}
 }
