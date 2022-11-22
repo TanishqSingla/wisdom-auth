@@ -36,4 +36,17 @@
 	.caption-title {
 		@apply font-bold text-2xl mb-2;
 	}
+
+  .modal-container {
+    @apply rounded-lg bg-white max-w-md mx-auto divide-y-2 -mt-44
+  }
+  .modal-header {
+    @apply flex justify-between p-4
+  }
+  .modal-title {
+    @apply text-xl font-semibold
+  }
+  .modal-content {
+    @apply p-4 mb-4
+  }
 }
