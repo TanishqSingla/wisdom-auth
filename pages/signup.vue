@@ -94,7 +94,7 @@ export default {
                 <select class="border p-2 rounded-md w-24">
                   <option value="+91">+91</option>
                 </select>
-                <input placeholder="Mobile Number" v-model="phNumber" />
+                <input placeholder="Mobile Number" v-model="phNumber" class="w-full"/>
               </label>
               <span v-if="errorPhNumber" class="text-danger errorMessage">{{ errorPhNumber }}</span>
             </div>
