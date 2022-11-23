@@ -89,15 +89,15 @@ export default {
               <input placeholder="Email Address" v-model="email" />
               <span v-if="errorEmail" class="text-danger errorMessage">{{ errorEmail }}</span>
             </label>
-            <div class="flex gap-2">
-              <label class="border p-2 rounded-md w-24">
-                <select>
+            <div>
+              <label class="flex flex-row gap-2">
+                <select class="border p-2 rounded-md w-24">
                   <option value="+91">+91</option>
                 </select>
+                <input placeholder="Mobile Number" v-model="phNumber" />
               </label>
-              <input placeholder="Mobile Number" v-model="phNumber" />
+              <span v-if="errorPhNumber" class="text-danger errorMessage">{{ errorPhNumber }}</span>
             </div>
-            <span v-if="errorPhNumber" class="text-danger errorMessage">{{ errorPhNumber }}</span>
             <label>
               <div class="relative">
                 <input placeholder="Password" :type="showPassword ? 'text' : 'password'" v-model="password" />
