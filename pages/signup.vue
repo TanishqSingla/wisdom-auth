@@ -62,7 +62,7 @@ export default {
             }
             return;
           }
-          this.visbile = true;
+          this.visible = true;
         });
       }
     },
