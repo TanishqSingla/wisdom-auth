@@ -53,7 +53,7 @@ export default {
             <div class="form-body">
               <input name="emailOrPhone" placeholder="Registered Email" v-model="email" v-on:blur="validateEmail"
                 v-on:input="validateEmail" :class="emailError ? 'border-danger' : ''" />
-              <span class="text-danger">{{ emailError }}</span>
+              <span class="errorMessage text-danger">{{ emailError }}</span>
             </div>
             <div class="form-footer gap-4">
               <button class="btn-primary" type="submit" :disabled="emailError.length !== 0">

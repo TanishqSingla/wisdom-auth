@@ -158,6 +158,6 @@ label {
 }
 
 span[role="alert"] {
-	@apply text-danger;
+	@apply text-danger text-xs lg:text-sm;
 }
 </style>

@@ -11,6 +11,9 @@
 		@apply p-2 h-12 lg:w-96 w-full border border-slate-200 focus:outline-none focus:border-neutralGray rounded-[4px];
 	}
 
+	.errorMessage {
+		@apply text-xs lg:text-sm
+	}
 	.btn {
 		@apply h-12 rounded-md font-semibold text-lg;
 	}

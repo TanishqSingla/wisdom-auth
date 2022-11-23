@@ -84,13 +84,13 @@ export default {
               </label>
               <input placeholder="Mobile Number" v-model="phNumber" />
             </div>
-            <span v-if="errorPhNumber" class="text-danger">{{ errorPhNumber }}</span>
+            <span v-if="errorPhNumber" class="text-danger errorMessage">{{ errorPhNumber }}</span>
             <label>
               <div class="relative">
                 <input placeholder="Password" :type="showPassword ? 'text' : 'password'" v-model="password" />
                 <img :src="showPassword?eyeClosed:eye" v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 bottom-4" />
               </div>
-              <span class="text-xs mt-2" :class="errorPassword ? 'text-danger' : ''">Password must be at least 8
+              <span class="errorMessage mt-2" :class="errorPassword ? 'text-danger' : ''">Password must be at least 8
                 characters</span>
             </label>
             <p class="text-xs">

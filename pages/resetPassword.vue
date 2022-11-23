@@ -74,6 +74,6 @@ import eyeClosed from '~/assets/svgs/eye-closed.svg'
 
 <style scoped>
 form span {
-  @apply text-xs
+  @apply errorMessage
 }
 </style>
