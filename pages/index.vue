@@ -39,7 +39,7 @@ export default {
 								<ErrorMessage name="email" />
 							</label>
 							<label class="relative">
-								<Field name="password" type="password" placeholder="Password" v-model.trim="password"
+								<Field name="password" :type="showPassword?text:password" placeholder="Password" v-model.trim="password"
 									:class="errorPassword ? 'border-danger' : ''" />
 								<img :src="showPassword?eyeClosed:eye" v-on:click="() => showPassword = !showPassword" class="absolute right-4 top-4">
 								<ErrorMessage name="password" />
