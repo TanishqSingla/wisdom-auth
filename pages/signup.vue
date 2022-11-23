@@ -53,11 +53,11 @@ export default {
           }),
         }).then(async (res) => {
           const data = await res.json();
-          if(data.error) {
-            if(data.error?.email) {
+          if (data.error) {
+            if (data.error?.email) {
               this.errorEmail = data.error.email;
             }
-            if(data.error?.phoneNumber) {
+            if (data.error?.phoneNumber) {
               this.errorPhNumber = data.error.phoneNumber;
             }
             return;
@@ -85,8 +85,10 @@ export default {
           <form class="form" @submit.prevent="submitForm">
             <input placeholder="First Name" required v-model="firstName" />
             <input placeholder="Last Name" v-model="lastName" />
-            <input placeholder="Email Address" v-model="email" />
-            <span v-if="errorEmail" class="text-danger">{{ errorEmail }}</span>
+            <label>
+              <input placeholder="Email Address" v-model="email" />
+              <span v-if="errorEmail" class="text-danger errorMessage">{{ errorEmail }}</span>
+            </label>
             <div class="flex gap-2">
               <label class="border p-2 rounded-md w-24">
                 <select>
@@ -124,7 +126,7 @@ export default {
           </template>
           <template #content>
             <p>
-              Please verify your account. We have sent an email to {{email}}. If you are unable to find the
+              Please verify your account. We have sent an email to {{ email }}. If you are unable to find the
               verification email please contact us at: +91-9380644532
             </p>
           </template>
