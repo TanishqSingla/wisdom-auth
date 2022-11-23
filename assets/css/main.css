@@ -45,18 +45,15 @@
 	}
 
   .modal-container {
-    @apply rounded-lg bg-white max-w-md mx-auto divide-y-2 -mt-44
+    @apply rounded-lg bg-white lg:max-w-md max-w-xs mx-auto divide-y-2 -mt-44
   }
   .modal-header {
     @apply flex justify-between p-4
   }
   .modal-title {
-    @apply text-xl font-semibold
+    @apply lg:text-xl font-semibold text-base
   }
   .modal-content {
-    @apply p-4 mb-4
+    @apply lg:p-4 mb-4 text-xs p-2 lg:text-base
   }
-	.spacer {
-		@apply lg:hidden grow
-	}
 }

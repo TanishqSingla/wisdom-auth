@@ -25,7 +25,7 @@ export default {
         body: JSON.stringify({ email: this.email }),
       }).then(async (res) => {
         const data = await res.json();
-        if(data.message) {
+        if (data.message) {
           this.visible = true;
           return;
         } else {
@@ -50,15 +50,19 @@ export default {
             </p>
           </div>
           <form class="form" @submit.prevent="submitForm">
-            <input name="emailOrPhone" placeholder="Registered Email" v-model="email" v-on:blur="validateEmail" v-on:input="validateEmail"
-              :class="emailError ? 'border-danger' : ''" />
-            <span class="text-danger">{{ emailError }}</span>
-            <button class="btn-primary" type="submit" :disabled="emailError.length !== 0">
-              Submit
-            </button>
-            <NuxtLink to="/"><button class="btn-secondary w-full">
-                Return to Sign In
-              </button></NuxtLink>
+            <div class="form-body">
+              <input name="emailOrPhone" placeholder="Registered Email" v-model="email" v-on:blur="validateEmail"
+                v-on:input="validateEmail" :class="emailError ? 'border-danger' : ''" />
+              <span class="text-danger">{{ emailError }}</span>
+            </div>
+            <div class="form-footer gap-4">
+              <button class="btn-primary" type="submit" :disabled="emailError.length !== 0">
+                Submit
+              </button>
+              <NuxtLink to="/"><button class="btn-secondary w-full">
+                  Return to Sign In
+                </button></NuxtLink>
+            </div>
           </form>
         </div>
       </div>

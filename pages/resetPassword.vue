@@ -14,11 +14,11 @@ export default {
     validateForm() {
       this.errorPassword = false;
       this.errorConfirmPassword = false;
-      if(!this.password || this.password.length < 8) {
+      if (!this.password || this.password.length < 8) {
         this.errorPassword = true;
         return false;
       }
-      if(this.confirmPassword !== this.password) {
+      if (this.confirmPassword !== this.password) {
         this.errorConfirmPassword = true;
         return false;
       }
@@ -41,26 +41,33 @@ export default {
             <p>Enter new password you haven't used before</p>
           </div>
           <form class="form" @submit.prevent="submitForm">
-            <label class="relative">
-              <input :type="showPassword ? 'text' : 'password'" placeholder="New Password" :class="errorPassword?'border-danger':''" v-model="password" />
+            <div class="form-body">
+              <label class="relative">
+                <input :type="showPassword ? 'text' : 'password'" placeholder="New Password"
+                  :class="errorPassword ? 'border-danger' : ''" v-model="password" />
                 <img :src="
                   showPassword
                     ? '_nuxt/assets/svgs/eye-closed.svg'
                     : '_nuxt/assets/svgs/eye.svg'
                 " v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 top-4" />
-            <span :class="errorPassword?'text-danger':'text-slate-500'">Password must be at least 8 characters</span>
-            </label>
-            <label class="relative">
-              <input :type="showConfirmPassword ? 'text' : 'password'" :class="errorConfirmPassword?'border-danger':''" placeholder="Confirm New Password" v-model="confirmPassword" />
+                <span :class="errorPassword ? 'text-danger' : 'text-slate-500'">Password must be at least 8
+                  characters</span>
+              </label>
+              <label class="relative">
+                <input :type="showConfirmPassword ? 'text' : 'password'"
+                  :class="errorConfirmPassword ? 'border-danger' : ''" placeholder="Confirm New Password"
+                  v-model="confirmPassword" />
                 <img :src="
                   showConfirmPassword
                     ? '_nuxt/assets/svgs/eye-closed.svg'
                     : '_nuxt/assets/svgs/eye.svg'
                 " v-on:click="() => (showConfirmPassword = !showConfirmPassword)" class="absolute right-4 top-4" />
-                <span :class="errorConfirmPassword?'text-danger':'text-slate-500'">Both passwords must match!</span>
-            </label>
-            <div class="spacer" />
-            <button class="btn-primary" type="submit">Reset Password</button>
+                <span :class="errorConfirmPassword ? 'text-danger' : 'text-slate-500'">Both passwords must match!</span>
+              </label>
+            </div>
+            <div class="form-footer">
+              <button class="btn-primary" type="submit">Reset Password</button>
+            </div>
           </form>
         </div>
       </div>

@@ -71,6 +71,7 @@ const emailOrPhone = useState("emailOrPhone", () => "");
 const password = useState("password", () => "");
 const errorEmail = useState("errorEmail", () => "");
 const errorPassword = useState("errorPassword", () => "");
+const loginMode = useState("loginMode", () => "");
 
 
 defineExpose({
@@ -83,11 +84,35 @@ defineExpose({
 function onSubmit(values, actions) {
 	errorEmail.value = validateEmail(emailOrPhone.value);
 	errorPassword.value = validatePassword(password.value);
-	if (errorEmail || errorPassword) {
+	if (errorEmail.value || errorPassword.value) {
 		errorEmail.value && actions.setFieldError('email', errorEmail.value);
 		errorPassword.value && actions.setFieldError('password', errorPassword.value);
 		return;
 	}
+
+	const payload = {password: password.value};
+	if(loginMode.value === "email") {
+		payload.email = emailOrPhone.value;
+	} else {
+		payload.phoneNumber = emailOrPhone.value;
+	}
+
+	fetch('http://localhost:4000/api/user/login', {
+		method: "POST",
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify(payload)
+	}).then(async(res) => {
+		const data = await res.json();
+		console.log(data)
+		if(data?.error.email) {
+			actions.setFieldError('email', data.error.email);
+			return;
+		}
+		if(data?.error.password) {
+			actions.setFieldError('password', data.error.password);
+			return;
+		}
+	})
 }
 
 function validateEmail(value) {
@@ -95,10 +120,12 @@ function validateEmail(value) {
 		return inputErrors.noEmailOrPhone;
 	}
 	if (value.includes("@")) {
+		loginMode.value = "email"
 		if (!isEmail(value)) {
 			return inputErrors.validEmail;
 		}
 	} else {
+		loginMode.value = "mobile"
 		if (!isMobileNumber(value)) {
 			return inputErrors.validPhNumber;
 		}
