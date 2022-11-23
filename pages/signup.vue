@@ -88,11 +88,7 @@ export default {
             <label>
               <div class="relative">
                 <input placeholder="Password" :type="showPassword ? 'text' : 'password'" v-model="password" />
-                <img :src="
-                  showPassword
-                    ? '_nuxt/assets/svgs/eye-closed.svg'
-                    : '_nuxt/assets/svgs/eye.svg'
-                " v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 bottom-4" />
+                <img :src="showPassword?eyeClosed:eye" v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 bottom-4" />
               </div>
               <span class="text-xs mt-2" :class="errorPassword ? 'text-danger' : ''">Password must be at least 8
                 characters</span>
@@ -112,3 +108,8 @@ export default {
     </template>
   </Layout>
 </template>
+
+<script setup>
+import eye from '~/assets/svgs/eye.svg'
+import eyeClosed from '~/assets/svgs/eye-closed.svg'
+</script>

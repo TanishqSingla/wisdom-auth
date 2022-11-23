@@ -45,11 +45,7 @@ export default {
               <label class="relative">
                 <input :type="showPassword ? 'text' : 'password'" placeholder="New Password"
                   :class="errorPassword ? 'border-danger' : ''" v-model="password" />
-                <img :src="
-                  showPassword
-                    ? '_nuxt/assets/svgs/eye-closed.svg'
-                    : '_nuxt/assets/svgs/eye.svg'
-                " v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 top-4" />
+                <img :src="showPassword?eyeClosed:eye" v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 top-4" />
                 <span :class="errorPassword ? 'text-danger' : 'text-slate-500'">Password must be at least 8
                   characters</span>
               </label>
@@ -57,11 +53,7 @@ export default {
                 <input :type="showConfirmPassword ? 'text' : 'password'"
                   :class="errorConfirmPassword ? 'border-danger' : ''" placeholder="Confirm New Password"
                   v-model="confirmPassword" />
-                <img :src="
-                  showConfirmPassword
-                    ? '_nuxt/assets/svgs/eye-closed.svg'
-                    : '_nuxt/assets/svgs/eye.svg'
-                " v-on:click="() => (showConfirmPassword = !showConfirmPassword)" class="absolute right-4 top-4" />
+                <img :src="showConfirmPassword?eyeClosed:eye" v-on:click="() => (showConfirmPassword = !showConfirmPassword)" class="absolute right-4 top-4" />
                 <span :class="errorConfirmPassword ? 'text-danger' : 'text-slate-500'">Both passwords must match!</span>
               </label>
             </div>
@@ -74,6 +66,11 @@ export default {
     </template>
   </Layout>
 </template>
+
+<script setup>
+import eye from '~/assets/svgs/eye.svg';
+import eyeClosed from '~/assets/svgs/eye-closed.svg'
+</script>
 
 <style scoped>
 form span {

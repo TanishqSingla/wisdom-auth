@@ -1,6 +1,8 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { isEmail, isMobileNumber, inputErrors } from "../util/utils";
+import eye from '~/assets/svgs/eye.svg';
+import eyeClosed from '~/assets/svgs/eye-closed.svg'
 
 export default {
 	components: {
@@ -11,6 +13,7 @@ export default {
 	data() {
 		return {
 			visible: false,
+			showPassword: false,
 		};
 	},
 };
@@ -35,9 +38,10 @@ export default {
 									:class="errorEmail ? 'border-danger' : ''" />
 								<ErrorMessage name="email" />
 							</label>
-							<label>
+							<label class="relative">
 								<Field name="password" type="password" placeholder="Password" v-model.trim="password"
 									:class="errorPassword ? 'border-danger' : ''" />
+								<img :src="showPassword?eyeClosed:eye" v-on:click="() => showPassword = !showPassword" class="absolute right-4 top-4">
 								<ErrorMessage name="password" />
 							</label>
 							<NuxtLink to="/forgotPassword" class="text-sm text-[royalblue] font-bold text-right">Forgot Password
