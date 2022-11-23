@@ -13,6 +13,7 @@ export default {
       password: "",
       firstName: "",
       lastName: "",
+      visible: false,
     };
   },
   methods: {
@@ -52,6 +53,16 @@ export default {
           }),
         }).then(async (res) => {
           const data = await res.json();
+          if(data.error) {
+            if(data.error?.email) {
+              this.errorEmail = data.error.email;
+            }
+            if(data.error?.phoneNumber) {
+              this.errorPhNumber = data.error.phoneNumber;
+            }
+            return;
+          }
+          this.visbile = true;
         });
       }
     },
@@ -88,7 +99,8 @@ export default {
             <label>
               <div class="relative">
                 <input placeholder="Password" :type="showPassword ? 'text' : 'password'" v-model="password" />
-                <img :src="showPassword?eyeClosed:eye" v-on:click="() => (showPassword = !showPassword)" class="absolute right-4 bottom-4" />
+                <img :src="showPassword ? eyeClosed : eye" v-on:click="() => (showPassword = !showPassword)"
+                  class="absolute right-4 bottom-4" />
               </div>
               <span class="errorMessage mt-2" :class="errorPassword ? 'text-danger' : ''">Password must be at least 8
                 characters</span>
@@ -105,6 +117,19 @@ export default {
           </form>
         </div>
       </div>
+      <Teleport to="body">
+        <Modal v-show="visible" v-on:closeModal="() => (visible = false)">
+          <template #title>
+            <h1 class="modal-title">Verify Email</h1>
+          </template>
+          <template #content>
+            <p>
+              Please verify your account. We have sent an email to {{email}}. If you are unable to find the
+              verification email please contact us at: +91-9380644532
+            </p>
+          </template>
+        </Modal>
+      </Teleport>
     </template>
   </Layout>
 </template>
